@@ -12,13 +12,6 @@ cask "airay" do
 
   app "AiRay.app"
 
-  # Credits a later purchase to Homebrew (first touch only; the app never overwrites it).
-  postflight do
-    unless system_command("/usr/bin/defaults", args: ["read", "net.jocoding.airay", "installRef"], print_stderr: false).success?
-      system_command "/usr/bin/defaults", args: ["write", "net.jocoding.airay", "installRef", "-string", "brew"]
-    end
-  end
-
   # Application Support/AiRay is left alone: it holds the records needed to restore past cleanups.
   zap trash: [
     "~/Library/Caches/net.jocoding.airay",
