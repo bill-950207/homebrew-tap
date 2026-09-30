@@ -12,6 +12,14 @@ cask "airay" do
 
   app "AiRay.app"
 
+  # Opens AiRay once the app is in place (it updates itself from then on). The installer runs before the app is
+  # moved and postflight steps are sandboxed away from LaunchServices, so this waits a moment in the background.
+  installer script: {
+    executable:   "/bin/sh",
+    args:         ["-c", "(sleep 3; /usr/bin/open -b net.jocoding.airay) >/dev/null 2>&1 &"],
+    must_succeed: false,
+  }
+
   # Application Support/AiRay is left alone: it holds the records needed to restore past cleanups.
   zap trash: [
     "~/Library/Caches/net.jocoding.airay",
